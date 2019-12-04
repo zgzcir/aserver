@@ -9,7 +9,7 @@ public class ServerSession : PESession<GameMsg>
     protected override void OnConnected()
     {
         base.OnConnected();
-        sessionId = GameRoot.Instance.GetSessionID();
+        sessionId = ServerRoot.Instance.GetSessionID();
         CommonTool.Log($"*{sessionId}  Client Connected*");
     }
 

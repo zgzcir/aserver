@@ -1,16 +1,18 @@
 using System;
+using static AServer.Config;
+using static AServer.Enviroment;
 
-public class GameRoot
+public class ServerRoot
 {
-    private static GameRoot instance;
+    private static ServerRoot instance;
 
-    public static GameRoot Instance
+    public static ServerRoot Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = new GameRoot();
+                instance = new ServerRoot();
             }
 
             return instance;
@@ -21,6 +23,15 @@ public class GameRoot
     public void init(params object[] args)
 
     {
+        switch (args[0])
+        {
+            case "dev":
+                Env = Dev;
+                break;
+            case "prod":
+                Env = Production;
+                break;
+        }
 
         DBMgr.Instance.Init();
         //svc
@@ -37,7 +48,7 @@ public class GameRoot
         PowerSys.Instance.init();
         TaskRewardSys.Instance.init();
         MissionSys.Instance.init();
-        CommonTool.Log("Start...");
+        CommonTool.Log($"now the server is runing in {Env}");
     }
 
     public void Update()

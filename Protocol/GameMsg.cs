@@ -276,7 +276,7 @@ namespace Protocol
     //}
     public class SrvCfg
     {
-        public const string devIP = "127.0.0.0";
+        public const string devIP = "127.0.0.1";
         public const string srvIP = "172.18.177.108";
         public const string srvIPClient = "47.106.254.223";
         public const int srvPort = 17666;

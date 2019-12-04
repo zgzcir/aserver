@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using PENet;
 using Protocol;
+using static AServer.Config;
+using static AServer.Enviroment;
 
 public class MsgPack
 {
     public ServerSession Session;
     public GameMsg Msg;
+
 
     public MsgPack(ServerSession session, GameMsg msg)
     {
@@ -26,16 +29,27 @@ public class NetSvc
             {
                 instance = new NetSvc();
             }
+
             return instance;
         }
     }
+
     public static readonly string obj = "lock";
     private Queue<MsgPack> msgPackQue = new Queue<MsgPack>();
 
     public void init()
     {
         PESocket<ServerSession, GameMsg> server = new PESocket<ServerSession, GameMsg>();
-        server.StartAsServer(SrvCfg.srvIP, SrvCfg.srvPort);
+        switch (Env)
+        {
+            case Dev:
+                server.StartAsServer(SrvCfg.devIP, SrvCfg.srvPort);
+                break;
+            case Production:
+                server.StartAsServer(SrvCfg.srvIP, SrvCfg.srvPort);
+                break;
+        }
+
         CommonTool.Log("NetSvc Connected");
     }
 
@@ -58,6 +72,7 @@ public class NetSvc
             }
         }
     }
+
     private void ProcessMsg(MsgPack pack)
     {
         switch ((CMD) pack.Msg.cmd)
@@ -86,6 +101,6 @@ public class NetSvc
             case CMD.ReqMission:
                 MissionSys.Instance.ReqMission(pack);
                 break;
-        } 
+        }
     }
 }

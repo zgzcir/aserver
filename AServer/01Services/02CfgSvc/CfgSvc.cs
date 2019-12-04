@@ -1,9 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.Xml;
-using MySql.Data;
+using static AServer.Config;
+using static AServer.Enviroment;
+using static CfgName;
 
+public class CfgName
+{
+    public const string Guide = "Guide";
+    public const string Strengthen = "Strengthen";
+    public const string Taskreward = "Taskreward";
+    public const string Map = "Map";
 
+    public static string GetFullname(string name)
+    {
+        return $"{ConfigPath}{name}.xml";
+    }
+}
 
 public class MapCfg : BaseData<MapCfg>
 {
@@ -80,7 +93,7 @@ public class CfgSvc
     private void InitGuideCfg()
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load("05ResCfgs/Guide.xml");
+doc.Load(GetFullname(Guide));
         XmlNodeList nodeLst = doc.SelectSingleNode("root")?.ChildNodes;
         for (int i = 0; i < nodeLst?.Count; i++)
         {
@@ -133,7 +146,7 @@ public class CfgSvc
     private void InitStrengthenCfg()
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load( "05ResCfgs/Strengthen.xml");
+        doc.Load(GetFullname(Strengthen));
         XmlNodeList nodeLst = doc.SelectSingleNode("root")?.ChildNodes;
         for (int i = 0; i < nodeLst?.Count; i++)
         {
@@ -220,7 +233,7 @@ public class CfgSvc
     private void InitTaskRewardCfgDic()
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load( "05ResCfgs/Taskreward.xml");
+        doc.Load(GetFullname(Taskreward));
         XmlNodeList nodeLst = doc.SelectSingleNode("root")?.ChildNodes;
         for (int i = 0; i < nodeLst?.Count; i++)
         {
@@ -278,7 +291,7 @@ public class CfgSvc
     private void InitMapCfg()
     {
         XmlDocument doc = new XmlDocument();
-        doc.Load( "05ResCfgs/Map.xml");
+        doc.Load(GetFullname(Map));
         XmlNodeList nodLst = doc.SelectSingleNode("root")?.ChildNodes;
             for (int i = 0; i < nodLst.Count; i++)
             {
