@@ -1,0 +1,7 @@
+
+.idea/
+bin/
+obj/
+*/bin/
+*/Libs/
+*/obj/
